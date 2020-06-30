@@ -15,7 +15,7 @@ I've been meaning to give [Flutter](https://flutter.dev), a framework for cross-
 
 > Flutter is Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
 
-// TODO: More about this.
+The framework isn't quite there yet. Currently, only Android and iOS are officialy supported.
 
 ## The theory behind simulating color deficiencies
 
