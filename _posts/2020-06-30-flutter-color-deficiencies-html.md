@@ -15,7 +15,7 @@ I've been meaning to give [Flutter](https://flutter.dev), a framework for cross-
 
 > Flutter is Google’s UI toolkit for building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
 
-The framework isn't quite there yet. Currently, only Android and iOS are officialy supported.
+The framework isn't quite there yet. Currently, only Android and iOS are officially supported.
 
 ## The theory behind simulating color deficiencies
 
@@ -170,7 +170,7 @@ Plugging these two things together lead to a quick prototype. Once I was this fa
 * Dart is big leap forward from Java, with which I had my last app-writing experience.
 * One codebase for all platforms is great!
 * The community is fun! For example there's short, easy-to-digest videos that give you an intro to essential components.
-* The developer experience is very smooth with nice utilies like the hot reloading, the web debugger and more.
+* The developer experience is very smooth with nice utilities like the hot reloading, the web debugger and more.
 
 But of course things are not perfect. When polishing [the app](https://play.google.com/store/apps/details?id=ch.panmari.cat_sight) for release, I also encountered a few bumps:
 
