@@ -85,8 +85,25 @@ Flutter has thriving plugin environment, many of them provided by the flutter te
 
 Initialization is somewhat cumbersome, but the documentation does a good job explaining all the steps. I had some trouble figuring out all steps necessary to make it look right on all devices, but in the end succeeded by making use of [AspectRatio](https://api.flutter.dev/flutter/widgets/AspectRatio-class.html) and [RotatedBox](https://api.flutter.dev/flutter/widgets/RotatedBox-class.html).
 
+The rotation was exceptionally hard to get right. Once I realized that there's likely no easy solution, I started noting down measurements of the reported device and camera orientation for all devices I had laying around. At first I attempted to also support landscape mode, but then decided to simplify to portrait only. Here's the measurements.
+
+| Model     | Lens direction | Orientation | Reported camera orientation | Reported device orientation | Required rotation |
+| --------- | -------- | ----------- | ------ | ------ | ----------------- |
+| Nexus 6P  | front    | Portrait    | 1      | 1      | 0                 |
+| Nexus 6P  | back     | Portrait    | 1      | 1      | 0                 |
+| Pixel 3a  | front    | Portrait    | 3      | 1      | 0                 |
+| Pixel 3a  | back     | Portrait    | 1      | 1      | 0                 |
+| Pixel C   | front    | Portrait    | 0      | 1      | 3                 |
+| Pixel C   | back     | Portrait    | 0      | 1      | 1                 |
+| Galaxy A5 | front    | Portrait    | 3      | 1      | 0                 |
+| Galaxy A5 | back     | Portrait    | 1      | 1      | 0                 |
+
+In portrait mode, only the Pixel C, the only tablet, was acting out of line. So I added special handling for the camera orientation 0, which is only reported on the Pixel C. This lead to the following implementation.
+
 ```dart
 class CameraPreviewWidget extends StatefulWidget {
+  CameraDescription camera;
+  
   @override
   CameraPreviewState createState() => CameraPreviewState();
 }
@@ -108,6 +125,24 @@ class CameraPreviewState extends State<CameraPreviewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    int quarterTurns = 0
+    int quarterTurnsCamera =
+              _controller.description.sensorOrientation ~/ 90;
+    if (quarterTurnsCamera == 0) {
+      // Pixel C is the only device that returns sensor orientation 0 and needs some fixes.
+      switch (widget.camera.lensDirection) {
+        case CameraLensDirection.front:
+          quarterTurns = 3;
+          break;
+        case CameraLensDirection.back:
+          quarterTurns = 1;
+          break;
+        default:
+          // Nothing.
+          break;
+      }
+    }
+
     // Wrapping the CameraPreview in a AspectRatio makes sure the
     // image doesn't distort depending on the screen space available.
     return AspectRatio(
@@ -115,7 +150,7 @@ class CameraPreviewState extends State<CameraPreviewWidget> {
       // Some sensors are not oriented the same way as the display, thus
       // the camera preview needs to be wrapped in a RotatedBox.
       child: RotatedBox(
-        quarterTurns: 1 - _controller.description.sensorOrientation ~/ 90,
+        quarterTurns: quarterTurns,
         // Camera preview from controller.
         child: CameraPreview(_controller),
       ),
