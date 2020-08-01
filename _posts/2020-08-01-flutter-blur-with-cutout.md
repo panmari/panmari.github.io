@@ -4,16 +4,16 @@ title: Blur the background of a flutter app with a cutout
 tags: [flutter, blur, highlight]
 ---
 
-Every once in a while you want to draw the attention of a user to a specific part of your app. One way of doing so is blurring all screen content, except a small cutout.
+Every once in a while you want to draw the attention of a user to a specific part of your app. One way of doing so is blurring all screen content, except a small cutout. To take it up a notch, also darken the blurred area.
 
-<img src="/assets/img/blur_cutout_before.png" width="40%"/> <img src="/assets/img/blur_cutout_after.png" width="40%"/> 
+<img src="/assets/img/blur_cutout_before.png" width="32%"/> <img src="/assets/img/blur_cutout_after.png" width="32%"/> <img src="/assets/img/blur_cutout_shadow.png" width="32%"/>
 
 The general idea how to achieve this in flutter is
 
 1. Create a stack with two items
     1. The app content
     1. A `BackdropFilter` using `ImageFilter.blur`
-1. Create a cutout using a `CustomPaint`
+1. Create a cutout using `CustomPaint`
 
 But let's take it slow and go step by step.
 
@@ -25,22 +25,19 @@ This is pretty straight forward. Wrap your existing content in a stack with 2 it
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: Stack(
+    return Stack(
         children: [
-          YourHomeScreenContent(),
-          // This is where the blurring happens
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-            // A container that expands to the full available space.
-            child: Container(
-              alignment: Alignment.center,
-              color: Colors.transparent,
+            YourHomeScreenContent(),
+            // This is where the blurring happens
+            BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                // A container that expands to the full available space.
+                child: Container(
+                    alignment: Alignment.center,
+                    color: Colors.transparent,
+                ),
             ),
-          ),
         ],
-      ),
     );
   }
 }
@@ -55,7 +52,7 @@ To create a cutout, add a `CustomPaint` child to the container defining the blur
             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
             child: Container(
               alignment: Alignment.center,
-              // Choose Colors.black here if you want a shadow effect in addition to blurring.
+              // Choose Colors.black.withOpacity(0.3) here if you want a shadow effect in addition to blurring.
               color: Colors.transparent,
               // This part is new, creating the cutout.
               child: CustomPaint(
