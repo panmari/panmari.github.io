@@ -89,7 +89,7 @@ before_script:
 - openssl aes-256-cbc -K $encrypted_REPLACE_key -iv $encrypted_REPLACE_iv -in key.json.enc -out key.json -d
 # Set up gcloud access to Firebase.
 - gcloud auth activate-service-account --key-file=key.json
-- gcloud --quiet config set project catsight-be4bc
+- gcloud --quiet config set project REPLACE_WITH_FIREBASE_PROJECT_NAME
 script:
 # Run normal flutter tests.
 - "./flutter/bin/flutter test"
@@ -97,7 +97,7 @@ script:
 - pushd android
 - ../flutter/bin/flutter build apk --profile # Profile mode, otherwise keys for signing are necessary.
 - ./gradlew app:assembleAndroidTest
-- ./gradlew app:assembleDebug -Ptarget=test/cat_sight_e2e.dart
+- ./gradlew app:assembleDebug -Ptarget=test/your_app_e2e.dart
 - popd
 # Run e2e tests on Firebase test lab
 - gcloud firebase test android run --type instrumentation   --app build/app/outputs/apk/debug/app-debug.apk   --test
