@@ -111,4 +111,7 @@ cache:
   - $HOME/.android/build-cache
 ```
 
-And there you have it! Every run of Travis CI will now also include your integration tests.
+And there you have it! Every run of Travis CI will now also include your integration tests. Before you go, here a few tips
+
+* Quota is limited, so use `[skip travis]` in the beginning of your commit if you don't want to [skip the build](https://docs.travis-ci.com/user/customizing-the-build#skipping-a-build).
+* Test runs are also listed in the test lab section of your firebase project. There's a bunch of additional information there like screenshots and videos of your runs.
