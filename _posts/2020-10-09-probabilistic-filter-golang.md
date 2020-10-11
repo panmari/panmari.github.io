@@ -6,7 +6,7 @@ tags: [golang, bloomfilter, cuckoofilter]
 
 Probabilistic datastructes are a useful tool for every programmers tool belt. Imagine you have an expensive lookup operation, for example fetching a file over the network or hitting a slow, huge database. You only want to spend time and resources on this call if there's actually a result to retrieve!
 
-This is where probabilistic filters come in handy: They provide a lookup function that
+This is where probabilistic filters come in handy: They are a lightweight datastructure that provide a lookup function that
 
 1. returns `false` if and only if the key is missing
 2. returns `true` if the key is available with high likelihood
