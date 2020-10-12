@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Comparing different probabilistic filters
+title: Most efficient probabilistic datastructure in go
 tags: [golang, bloomfilter, cuckoofilter]
 ---
 
@@ -10,6 +10,8 @@ This is where probabilistic filters come in handy: They are a lightweight datast
 
 1. returns `false` if and only if the key is missing
 2. returns `true` if the key is available with high likelihood
+
+After evaluating the existing implementations on Github, I created a new optimized one at [panmari/cuckoofilter](http://github.com/panmari/cuckoofilter).
 
 ## Background
 
@@ -37,7 +39,7 @@ I found these popular implementations on Github and gave them all a spin
 * [steakknife/bloomfilter](http://github.com/steakknife/bloomfilter)
 * [vedhavyas/cuckoo-filter](http://github.com/vedhavyas/cuckoo-filter)
 
-The code used for the evaluation is [in this repo](https://github.com/panmari/compare_probabilistic_filters). 
+The code used for the evaluation is [in this repo](https://github.com/panmari/compare_probabilistic_filters).
 
 ### Memory consumption
 
@@ -62,31 +64,31 @@ Note this benchmark is single threaded. That puts some libraries at a disadvanta
 #### Insertion
 
 ```
-BenchmarkInsertBloomFilter-4                        6692            169984 ns/op
-BenchmarkInsertBBloom-4                            37878             30963 ns/op
-BenchmarkInsertSeiflotfyCuckoo-4                   27488             43272 ns/op
-BenchmarkInsertPanmariCuckoo-4                     61988             18910 ns/op
-BenchmarkInsertVedhavyasCuckoo-4                    5964            177837 ns/op
+InsertBloomFilter-4              165µs ± 2%
+InsertBBloom-4                  30.9µs ± 0%
+InsertSeiflotfyCuckoo-4         43.0µs ± 0%
+InsertPanmariCuckoo-4           18.9µs ± 1%
+InsertVedhavyasCuckoo-4          176µs ± 0%
 ```
 
 #### Contains #1
 
 ```
-BenchmarkContainsTrueBloom-4                        7820            156934 ns/op
-BenchmarkContainsTrueBBloom-4                      39914             29274 ns/op
-BenchmarkContainsTrueSeiflotfyCuckoo-4             59832             19753 ns/op
-BenchmarkContainsTruePanmariCuckoo-4               49832             23859 ns/op
-BenchmarkContainsTrueVedhavyasCuckoo-4              8422            143366 ns/op
+ContainsTrueBloom-4              150µs ± 1%
+ContainsTrueBBloom-4            29.0µs ± 1%
+ContainsTrueSeiflotfyCuckoo-4   19.9µs ± 2%
+ContainsTruePanmariCuckoo-4     16.7µs ± 0%
+ContainsTrueVedhavyasCuckoo-4    143µs ± 3%
 ```
 
 #### Contains benchmark #2
 
 ```
-BenchmarkContainsFalseBloom-4                       7700            157848 ns/op
-BenchmarkContainsFalseBBloom-4                     42843             27156 ns/op
-BenchmarkContainsFalseSeiflotfyCuckoo-4            54796             21104 ns/op
-BenchmarkContainsFalsePanmariCuckoo-4              44841             26030 ns/op
-BenchmarkContainsFalseVedhavyasCuckoo-4             7436            149577 ns/op
+ContainsFalseBloom-4             152µs ± 1%
+ContainsFalseBBloom-4           26.8µs ± 0%
+ContainsFalseSeiflotfyCuckoo-4  21.0µs ± 0%
+ContainsFalsePanmariCuckoo-4    24.7µs ± 0%
+ContainsFalseVedhavyasCuckoo-4   148µs ± 2%
 ```
 
 ## Conclusion
