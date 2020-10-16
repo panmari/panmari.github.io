@@ -69,10 +69,10 @@ Two implementations stick out with having much worse performance. Comparing the 
 
 In terms of false positiv rate vs memory trade-off, `steakknife/bloomfilter` and `panmari/cuckoofilter` stand out. Both give great value for the memory you invest!
 
-When it comes to the runtime benchmarks of `Contains` calls, the cuckoo filters tend to be faster than the bloom filters. There's an good explanation for that: Cuckoo filters only need to check two positions, i.e. have at most two cache misses. Bloom filters need to access memory locations for all hash functions, i.e can have up to `k` cache misses.
+When it comes to the runtime benchmarks of `Contains` calls, the cuckoo filters tend to be faster than the bloom filters. There's a good explanation for that: Cuckoo filters only need to check two positions, i.e. have at most two cache misses. Bloom filters need to access memory locations for all hash functions, i.e can have up to `k` cache misses.
 
 Configurability is better for bloom filters: all implementations tested have construction time parameters to tweak the memory/false positive ratio trade-off. For Cuckoo filters, this is harder and backed into all implementations tested.
-This is also how my own implementation at `panmari/cuckoofilter` acchieves a better false positive rate while using double the memory of `seiflotfy/cuckoofilter`: It uses a fingerprint size of `16 bit`, as opposed to `8 bit`.
+This is also how my own implementation at `panmari/cuckoofilter` achieves a better false positive rate while using double the memory of `seiflotfy/cuckoofilter`: It uses a fingerprint size of `16 bit`, as opposed to `8 bit`.
 
 The authors of ["Cuckoo Filter: Better Than Bloom"](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf) derived the relation between fingprint size `f` and false positive rate `r`:
 
