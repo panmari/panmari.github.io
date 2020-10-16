@@ -59,37 +59,11 @@ Removing these two entries paints a clearer image among the other contenders.
 
 ### Benchmarks
 
-Note this benchmark is single threaded. That puts some libraries at a disadvantage as they only offer thread safe methods (using an internal lock).
+Note the benchmarks are single threaded. This puts some libraries at a disadvantage as they only offer thread safe methods (using an internal lock). Note that there's two different benchmark for `contains` calls: One with the item contained, the other with the item missing.
 
-#### Insertion
+Two implementations stick out with having much worse performance. Comparing the three more efficient implementations, cuckoo filters have the edge over all benchmarks.
 
-```
-InsertBloomFilter-4              165µs ± 2%
-InsertBBloom-4                  30.9µs ± 0%
-InsertSeiflotfyCuckoo-4         43.0µs ± 0%
-InsertPanmariCuckoo-4           18.9µs ± 1%
-InsertVedhavyasCuckoo-4          176µs ± 0%
-```
-
-#### Contains #1
-
-```
-ContainsTrueBloom-4              150µs ± 1%
-ContainsTrueBBloom-4            29.0µs ± 1%
-ContainsTrueSeiflotfyCuckoo-4   19.9µs ± 2%
-ContainsTruePanmariCuckoo-4     16.7µs ± 0%
-ContainsTrueVedhavyasCuckoo-4    143µs ± 3%
-```
-
-#### Contains benchmark #2
-
-```
-ContainsFalseBloom-4             152µs ± 1%
-ContainsFalseBBloom-4           26.8µs ± 0%
-ContainsFalseSeiflotfyCuckoo-4  21.0µs ± 0%
-ContainsFalsePanmariCuckoo-4    24.7µs ± 0%
-ContainsFalseVedhavyasCuckoo-4   148µs ± 2%
-```
+{% include cuckoo_benchmark_figures.html %}
 
 ## Conclusion
 
