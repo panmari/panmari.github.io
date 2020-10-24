@@ -59,7 +59,7 @@ Removing these two entries paints a clearer image among the other contenders.
 
 ### Benchmarks
 
-Note the benchmarks are single threaded. This puts some libraries at a disadvantage as they only offer thread safe methods (using an internal lock). Note that there's two different benchmark for `contains` calls: One with the item contained, the other with the item missing.
+Note the benchmarks are single threaded. This puts some libraries at a disadvantage as they only offer thread safe methods (using an internal lock). For `contains` calls, there's two separate benchmarks: One with the item contained, the other with the item missing.
 
 Two implementations stick out with having much worse performance. Comparing the three more efficient implementations, cuckoo filters have the edge over all benchmarks.
 
@@ -71,7 +71,7 @@ In terms of false positiv rate vs memory trade-off, `steakknife/bloomfilter` and
 
 When it comes to the runtime benchmarks of `Contains` calls, the cuckoo filters tend to be faster than the bloom filters. There's a good explanation for that: Cuckoo filters only need to check two positions, i.e. have at most two cache misses. Bloom filters need to access memory locations for all hash functions, i.e can have up to `k` cache misses.
 
-Configurability is better for bloom filters: all implementations tested have construction time parameters to tweak the memory/false positive ratio trade-off. For Cuckoo filters, this is harder and backed into all implementations tested.
+Configurability is better for bloom filters: all implementations tested have construction time parameters to tweak the memory/false positive ratio trade-off. For Cuckoo filters, this is harder and baked into all Cuckoo implementations tested.
 This is also how my own implementation at `panmari/cuckoofilter` achieves a better false positive rate while using double the memory of `seiflotfy/cuckoofilter`: It uses a fingerprint size of `16 bit`, as opposed to `8 bit`.
 
 The authors of ["Cuckoo Filter: Better Than Bloom"](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf) derived the relation between fingprint size `f` and false positive rate `r`:
