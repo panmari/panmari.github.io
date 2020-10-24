@@ -6,7 +6,7 @@ import re
 
 measurements = []
 
-with open('assets/img/cuckoo/sizes_bench.txt.benchstat') as f:
+with open('assets/img/cuckoo/benchmarks.txt.benchstat') as f:
     for line in f: 
         match = re.search(r'Filters/size=(\d+)/([A-z]+)/([A-z]+)-4\s+(\d+\.?\d*)(.s)', line)
         if match != None:
@@ -26,5 +26,14 @@ fig.update_yaxes(title_text='Time', ticksuffix=' ns')
 # See https://community.plotly.com/t/changing-label-of-plotly-express-facet-categories/28066/4
 fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[1]))
 fig.for_each_trace(lambda t: t.update(name=t.name.split("=")[1]))
+fig.update_layout(
+    legend=dict(
+        orientation="h",
+    ),
+)
 
-pio.write_html(fig, file='_includes/cuckoo_benchmark_figures.html')
+pio.write_html(fig, 
+               include_plotlyjs='cdn', 
+               full_html=False,
+               default_height='700px',
+               file='_includes/cuckoo_benchmark_figures.html')
