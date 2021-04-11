@@ -8,14 +8,14 @@ Changing content displayed for a given camera input stream makes your app feel l
 
 After surveying the situtation for a bit, I found a variety of packages that looked relevant
 
-* Low level API to plug in tensorflow models: https://pub.dev/packages/tflite
-* Unofficial ML Kit package: https://pub.dev/packages/mlkit
+* Low level API to plug in tensorflow models: [tflite](https://pub.dev/packages/tflite)
+* Unofficial ML Kit package: [mlkit](https://pub.dev/packages/mlkit)
 
 To me, the official [ML Vision package for firebase](https://pub.dev/packages/firebase_ml_vision) seemed most promising because:
 
 1. Model is on device and easy to install
 2. Easy to integrate into an existing flutter app
-3. Option to switch to a custom model in the future using https://pub.dev/packages/firebase_ml_custom
+3. Option to switch to a custom model in the future using [firebae_ml_custom](https://pub.dev/packages/firebase_ml_custom)
 
 It didn't take long until I ran into the first complication. When trying the example app for the `firebase_ml_vision` image labeler, my test phone (a Pixel 3a) only ever produced the labels `metal` and `pattern`.
 

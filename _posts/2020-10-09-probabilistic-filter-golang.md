@@ -76,7 +76,7 @@ This is also how my own implementation at `panmari/cuckoofilter` achieves a bett
 
 The authors of ["Cuckoo Filter: Better Than Bloom"](https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf) derived the relation between fingprint size `f` and false positive rate `r`:
 
-```
+```math
 f >= log2(2 * 4/r) bits
 ```
 
