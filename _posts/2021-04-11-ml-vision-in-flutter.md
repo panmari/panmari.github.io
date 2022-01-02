@@ -6,6 +6,8 @@ tags: [flutter, machine learning, vision, label detection]
 
 Changing content displayed for a given camera input stream makes your app feel like magic. I wanted to try my hand at exactly this for [my app](https://play.google.com/store/apps/details?id=ch.panmari.cat_sight) that simulates the vision of a cat.
 
+UPDATE for 2022: turns out my choice lined out below was deprecated rather quickly. The currently recommended package is [google_ml_kit](https://pub.dev/packages/google_ml_kit).
+
 After surveying the situtation for a bit, I found a variety of packages that looked relevant
 
 * Low level API to plug in tensorflow models: [tflite](https://pub.dev/packages/tflite)
