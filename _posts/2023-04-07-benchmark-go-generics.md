@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Find performance regressions in go with profiler
+title: Go generics and cpu profiling
 tags: [go, performance, profiling, generics]
 ---
 
