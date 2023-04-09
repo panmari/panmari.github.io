@@ -1,0 +1,19 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+a.tag {
+    color: #787878;
+}
+
+#header_wrap {
+    background: linear-gradient(to top, #995c1e, #212121);
+}
+
+img.avatar {
+    padding-right: 14px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}

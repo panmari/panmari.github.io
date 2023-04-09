@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Go generics and cpu profiling
-tags: [go, performance, profiling, generics]
+tags: [golang, profiling, generics]
 ---
 
 I recently tried introducing go generics for my [cuckoofilter implementation](http://github.com/panmari/cuckoofilter). 
@@ -24,9 +24,9 @@ Then I grabbed a profile for both versions of the code.
 
 ```bash
 git checkout master
-gotip test -bench=Filter_Lookup -cpuprofile=master_gotip.profile --benchtime=10s
+gotip test -bench=Filter_Lookup -cpuprofile=master_gotip.profile --benchtime=60s
 git checkout generic_fp_type
-gotip test -bench=Filter_Lookup -cpuprofile=generic_gotip.profile --benchtime=10s
+gotip test -bench=Filter_Lookup -cpuprofile=generic_gotip.profile --benchtime=60s
 ```
 
 Then its time to fire up pprof with the `-base` flag and `--web` to get a basic overview of where my code spends more time.
