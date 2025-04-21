@@ -1,0 +1,3 @@
+[submodule "permission"]
+	path = permission
+	url = https://github.com/panmari/permission.site
